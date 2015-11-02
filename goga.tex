@@ -1,0 +1,262 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+\documentclass[fleqn,12pt, a4paper]{article}
+% Русский язык
+\usepackage[T2A, T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+ % Поля страницы
+\usepackage{geometry}
+\geometry{left=2cm}
+\geometry{right=1.5cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+\usepackage[pdftex]{graphicx}
+\graphicspath{{images/}}%путь к рисункам
+\DeclareGraphicsExtensions{.png}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usetikzlibrary{shapes.misc}
+
+%\usepackage{indentfirst} % включить отступ у первого абзаца
+
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{multirow}
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{enumitem }
+%\usepackage{amsmath}
+\usepackage[fleqn]{amsmath}
+\setlength{\mathindent}{0pt}
+\usepackage{amsfonts,amssymb,amsthm,epsfig,epstopdf,titling,url,array,nccmath }
+
+\usepackage{listings} % for source code highlighning
+\lstset{language=C++}
+
+% Переопределения
+\newcommand {\la} {\langle}
+\newcommand {\ra} {\rangle}
+\renewcommand {\le} {\leqslant}
+\renewcommand {\ge} {\geqslant}
+\renewcommand {\leq} {\leqslant}
+\renewcommand {\geq} {\geqslant}
+\renewcommand {\emptyset} {\varnothing}
+\newcommand {\es} {\varnothing}
+\newcommand {\eps} {\varepsilon}
+\newcommand {\mydef}[1]{\emph{#1}}
+\newcommand{\To}{\Rightarrow}
+
+\newcommand{\Sig}{\ensuremath{\Sigma}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\NO}{\ensuremath{\mathbb N_0}}
+
+% Неразрывный дефис, который допускает перенос внутри слов,
+% типа жёлто-синий: нужно писать жёлто"/синий.
+\makeatletter
+    \defineshorthand[russian]{"/}{\mbox{-}\bbl@allowhyphens}
+\makeatother
+% Конец переопределений
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%						Титульный лист						%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+
+\begin{center} 
+\MakeUppercase{Минобрнауки России}\\
+Федеральное государственное автономное образовательное учреждение
+высшего профессионального образования
+<<Южный федеральный университет>>\\[1 cm]
+
+Институт математики, механики и компьютерных наук им. И.И. Воровича\\[1 cm]
+
+Кафедра алгебры и дискретной математики\\[5cm]
+
+\Huge \MakeUppercase{Курсовая работа} \\[0.6cm]
+
+\large по предмету: <<Теория автоматов и формальных языков>>\\[7cm]
+
+\end{center}
+
+\begin{flushleft}
+{\large 
+Выполнил: \\
+Студент 3 курса, $N$ группы \hfill И.О. Фамилия \\[1cm]
+
+Проверил:\\
+к.т.н., ст. преп. кафедры АДМ \hfill Е.В. Алымова}
+
+\end{flushleft}
+\vfill
+
+\begin{center}
+Ростов-на-Дону\\
+2015
+\end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%  Ссылки %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1) Нарисовать нужный символ и узнать код:
+%     http://detexify.kirelabs.org/classify.html
+% 2) Список символов:
+%     http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
+
+%%%%%%%%%%%%%%%%%%%%% Важные моменты %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 0) Все латинские (и греческие) буквы считаются
+%     математическими символами и потому пишутся в
+%     «математической моде», то есть между $...$ для
+%     внутристрочных формул и \[...\] для выключных (не $$...$$, как
+%     часто пишут).
+% 1) Не забывайте про знаки препинания в формулах (точки, запятые).
+% 2) Правильно: L^+, a^*, f\colon A \to B,  неправильно: L+, a*, f: A -> B.
+% 3) Обращайте внимание на спелл-чекер (красное подчёркивание слов
+%     с ошибками и неизвестных слов).
+% 4) Пустое слово обозначается символом $\eps$, а не $e$.
+% 5) В записи множеств наподобие $\{ h(w) \mid w \in L \}$
+%     следует использовать команду \mid, а не |.
+%     Обратите также внимание, что для печати символов { и }
+%     необходимы ‘\’, иначе скобки понимаются как средство
+%     группировки, например: a_{n-1} (n-1 это нижний индекс).
+
+%%%%%%%%%%%%%%%%%%%%% Часто используемые символы %%%%%%%%%%%%%%%%
+% Большинство значков используется в математическом режиме:
+%     внутри $...$ или \[...\].
+% - символ  |- это  \vdash.
+% - греческие буквы: \alpha, \beta, \gamma, \eps,...
+%     или заглавные: \Alpha, \Sigma, \Omega,...
+% - принадлежит (элемент множеству): \in
+% - индексы: a^n, L_i, L^+, L^*
+% - объединение/пересечение:
+%     двух множеств: A \cup B, A \cap B,
+%     семейства множеств: \bigcup_{n \ge 0} L^n
+% - нестрогие неравенства: \le, \ge,
+% - пустое множество: \es
+% - кавычки в тексте: <<текст>>
+% - троеточие: \ldots, а не ...! Заполнение точками: \dotfill
+% - угловые скобки: \langle \rangle
+% - Для тире следует использовать --- а не один -
+% - Для длины слова: | а не \mid.
+% - Текст внутри формулы: \text.
+% - Кавычки: не ", а <<ёлочки>> для русских слов и дважды ' ' для английских.
+%   образец кавычек-ёлочек для русских слов «праволинейный»
+% - Не пишите слова типа begin и liFe внутри $$: у них будут неверные пробелы между буквами,
+%    используйте обычный курсив: \emph{здесь курсив}.
+% - Для горизонтального отступа в формуле вместо mspace: \quad или \qquad (поменьше и побольше).
+% - Следите за длинными формулами. Если формулы две, например, h(0)=a, h(1)=b, то нужно
+%    ставить их в две разные пары долларов: $h(0)=a$, $h(1)=b$, а не в одну. Если формулы
+%    длинная и плохо помещается на строке (выходит на поля), то делайте её выключной (т.е. \[...\]).
+% - Следите за знаками препинания. В и~т.~д. желательно ставить вот такие ~ (неразрывный пробел).
+% - разбивайте строки с помощью Enter на более короткие, иначе под Git'ом неудобно diff'ы смотреть.
+%%%%%%%%%%%%%%%%%%%%% Крупные элементы %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Системы уравнений:
+%\begin{equation}% нумерованное уравнение
+%    \begin{cases}
+%        X_1 = 1X_1 + 0X_2 + \es X_3; \\
+%        X_2 = 1X_1 + \es X_2 + 0X_3; \\
+%        X_3 = 0X_1 + \es X_2 + 1X_3.
+%    \end{cases}
+%\end{equation}
+% Если нужна текстовая вставка внутри любой формулы
+% (например, системы уравнений), она делается с помощью
+% команды \text{текст}.
+%
+% Продукции:
+%\begin{equation}
+%\begin{array}{l}
+%    S \to 1A \mid 2S; \\
+%    A \to 0B \mid 0S \mid 1A; \\
+%    B \to 1C \mid 2C; \\
+%    C \to \eps \mid 1S \mid 2A.
+%\end{array}
+%\end{equation}
+%
+% Матрицы (с любыми скобками) и другие элементы:
+% http://en.wikibooks.org/wiki/LaTeX/Mathematics#Matrices_and_arrays
+%
+% Нумерованные списки:
+%\begin{enumerate}
+%    \item пункт
+%    \item и ещё…
+%\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%						Текст курсовой						%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Задание 1}
+Условие задания.
+\begin{enumerate}[label=(\roman{*})]
+	\item Построим ПЛ-грамматику...
+	\item \ldots
+	\item Пример задания автомата диаграммой переходов:\\
+\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (q0) [right=.7cm of init] {$q_0$};
+	\node[state] (q1) [above right of=q0] {$q_1$};
+    \node[state] (q2) [right of=q0] {$q_2$};
+    \node[state] (q3) [below right of=q0] {$q_3$};
+	\node[state,accepting] (qf) [right of=q2, above right of=q3] {$q_f$};
+
+	\path[->]
+    	(init) edge (q0)
+		(q0) edge [loop above] node {$1, 2, 3$} (q0)
+		(q0) edge node {$1$} (q1)
+        (q0) edge node {$2$} (q2)
+        (q0) edge node {$3$} (q3)
+        (q1) edge [loop above] node[right] {$1, 2, 3$} (q1)
+        (q1) edge node {$1$} (qf)
+        (q2) edge [loop above] node[right] {$1, 2, 3$} (q2)
+        (q2) edge node {$2$} (qf)
+        (q3) edge [loop above] node[right] {$1, 2, 3$} (q3)
+        (q3) edge node {$3$} (qf);
+\end{tikzpicture}
+	\item Пример задания функции переходов таблицей:\\
+		\begin{tabular}{llll}
+		\toprule
+		\multicolumn{1}{c}{\multirow{2}{*}{\Large $\delta^\prime$}}
+			& \multicolumn{3}{c}{Вход} \\
+		\cmidrule(rl){2-4}
+			& \multicolumn{1}{c}{1}
+				& \multicolumn{1}{c}{2}
+				& \multicolumn{1}{c}{3} \\
+		\midrule
+		$\{0\}$         & $\{0;1\}$       & $\{0;2\}$       & $\{0;3\}$       \\
+		$\{0;1\}$       & $\{0;1;f\}$     & $\{0;1;2\}$     & $\{0;1;3\}$     \\
+		$\{0;2\}$       & $\{0;1;2\}$     & $\{0;2;f\}$     & $\{0;2;3\}$     \\
+		$\{0;3\}$       & $\{0;1;3\}$     & $\{0;2;3\}$     & $\{0;3;f\}$     \\
+		$\{0;1;2\}$     & $\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;3\}$   \\
+		$\{0;1;3\}$     & $\{0;1;3;f\}$   & $\{0;1;2;3\}$   & $\{0;1;3;f\}$   \\
+		$\{0;1;f\}$     & $\{0;1;f\}$     & $\{0;1;2\}$     & $\{0;1;3\}$     \\
+		$\{0;2;3\}$     & $\{0;1;2;3\}$   & $\{0;2;3;f\}$   & $\{0;2;3;f\}$   \\
+		$\{0;2;f\}$     & $\{0;1;2\}$     & $\{0;2;f\}$     & $\{0;2;3\}$     \\
+		$\{0;3;f\}$     & $\{0;1;3\}$     & $\{0;2;3\}$     & $\{0;3;f\}$     \\
+		$\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;3\}$   \\
+		$\{0;1;3;f\}$   & $\{0;1;3;f\}$   & $\{0;1;2;3\}$   & $\{0;1;3;f\}$   \\
+		$\{0;2;3;f\}$   & $\{0;1;2;3\}$   & $\{0;2;3;f\}$   & $\{0;2;3;f\}$   \\
+		$\{0;1;2;3\}$   & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ \\
+		$\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ \\ \bottomrule
+		\end{tabular}
+\end{enumerate}
+
+\newpage
+\section*{Задание 2}
+Условие задания.
+\begin{enumerate}[label=(\roman{*})]
+	\item \ldots
+\end{enumerate}
+
+\newpage
+\section*{Задание 3}
+Условие задания.
+\begin{enumerate}[label=(\roman{*})]
+	\item \ldots
+\end{enumerate}
+
+\end{document}
