@@ -413,32 +413,60 @@
 	\end{tikzpicture}
 	
 	\newpage
-	Слово 53555.\\
+	Слово 5510.\\
 	
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
-	\node (init) {};
-	\node[state] (S) [right=.7cm of init] {$S$};
-	\node[state] (qA1) [below of=qS] {$B^1$};
-	\node[state] (qA2) [right of=qA1] {$B^2$};
-	\node[state] (qA3) [right of=qA2] {$B^3$};
-	\node[state] (qA4) [right of=qA3] {$B^4$};
-	\node[state] (qA5) [right of=qA4] {$B^5$};
-	\node[state,accepting] (qA6) [right of=qA5] {$B^6$};
-	
-	\path[->]
-	(init) edge (qS)
-	(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
-	(qS) edge node {$\eps$} (qA1)
-	(qA1) edge node {$5$} (qA2)
-	(qA2) edge node {$3$} (qA3)
-	(qA3) edge node {$5$} (qA4)
-	(qA4) edge node {$5$} (qA5)
-	(qA5) edge node {$5$} (qA6)
-	(qA6) edge [bend right] node {$\eps$} (qS)
-	;
+		\node (init) {};
+		\node[state] (S) [right=.7cm of init] {$S$};
+		\node[state] (qA1) [below=1cm of qS] {$C^1$};
+		\node[state] (qA2) [right of=qA1] {$C^2$};
+		\node[state] (qA3) [right of=qA2] {$C^3$};
+		\node[state] (qA4) [right of=qA3] {$C^4$};
+		\node[state,accepting] (qA5) [right of=qA4] {$C^5$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
+		(qS) edge node {$\eps$} (qA1)
+		(qA1) edge node {$5$} (qA2)
+		(qA2) edge node {$5$} (qA3)
+		(qA3) edge node {$1$} (qA4)
+		(qA4) edge node {$0$} (qA5)
+		(qA5) edge [bend right] node {$\eps$} (qS)
+		;
 	\end{tikzpicture}
 	
-	\vspace{2em}
+	\vspace{3em}
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (qS) [right=.7cm of init] {$S$};
+		\node[state] (q3) [right of=qS] {$q3$};
+		\node[state] (q2) [above of=q3] {$q2$};
+		\node[state,accepting] (q4) [below of=q3] {$q4$};
+		\node[state] (q1) [right of=q3] {$q1$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node [left] {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+		(qS) edge [bend left=80, looseness=2.5] node {$ 5 $} (q1)
+		
+		
+		(q1) edge [bend left=80, looseness=2.5] node {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+		(q1) edge node [above] {$5$} (q2)
+		
+		(q2) edge node [above, rotate=45] {\small{$0, 2, 3, 4$}} (qS)
+		(q2) edge [loop above] node {$ 5 $} (q2)
+		(q2) edge node {$1$} (q3)
+		
+		(q3) edge node {$5$} (q1)
+		(q3) edge node [above] {\small{$1, 2, 3, 4$}} (qS)
+		(q3) edge node {$0$} (q4)
+		
+		(q4) edge node [above] {$5$} (q1)
+		(q4) edge node [above, rotate=-45] {\small{$0, 1, 2, 3, 4$}} (qS)
+		;
+	\end{tikzpicture}
 \end{enumerate}
 
 \newpage
