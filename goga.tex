@@ -344,13 +344,101 @@
 	
 	(q5) edge [bend right] node {$5$} (q1)
 	(q5) edge [bend left=60] node {\small{$0, 1, 2, 3, 4$}} (qS)
-	
-	
-	
 	;
 	\end{tikzpicture}
 	
+	\newpage
+	Слово 53555.\\
 	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (S) [right=.7cm of init] {$S$};
+		\node[state] (qA1) [below of=qS] {$B^1$};
+		\node[state] (qA2) [right of=qA1] {$B^2$};
+		\node[state] (qA3) [right of=qA2] {$B^3$};
+		\node[state] (qA4) [right of=qA3] {$B^4$};
+		\node[state] (qA5) [right of=qA4] {$B^5$};
+		\node[state,accepting] (qA6) [right of=qA5] {$B^6$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
+		(qS) edge node {$\eps$} (qA1)
+		(qA1) edge node {$5$} (qA2)
+		(qA2) edge node {$3$} (qA3)
+		(qA3) edge node {$5$} (qA4)
+		(qA4) edge node {$5$} (qA5)
+		(qA5) edge node {$5$} (qA6)
+		(qA6) edge [bend right] node {$\eps$} (qS)
+		;
+	\end{tikzpicture}
+	
+	\vspace{2em}
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (S) [right=.7cm of init] {$S$};
+		\node[state] (q1) [above right of=qS] {$q1$};
+		\node[state] (q2) [right of=q1] {$q2$};
+		\node[state] (q3) [below right of=q2] {$q3$};
+		\node[state] (q4) [right of=q3] {$q4$};
+		\node[state,accepting] (q5) [right of=q4] {$q5$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop below] node [left] {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+		
+		
+		(qS) edge [bend left] node {$ 5 $} (q1)
+		
+		(q1) edge [bend left] node [right] {\small{$ 0, 1, 2, 4 $}} (qS)
+		(q1) edge [loop above] node {$ 5 $} (q1)
+		(q1) edge node {$3$} (q2)
+		
+		(q2) edge [bend left] node {$5$} (q3)
+		(q2) edge [bend left] node {\small{$0, 1, 2, 3, 4$}} (qS)
+		
+		(q3) edge [bend left] node {$3$} (q2)
+		(q3) edge [bend left] node {\small{$0, 1, 2, 4$}} (qS)
+		(q3) edge node {$5$} (q4)
+		
+		(q4) edge [bend right=25] node [above] {$3$} (q2)
+		(q4) edge [bend left=40] node {\small{$0, 1, 2, 4$}} (qS)
+		(q4) edge node {$5$} (q5)
+		
+		(q5) edge [bend right] node [above] {$3$} (q2)
+		(q5) edge [bend left=60] node {\small{$0, 1, 2, 4$}} (qS)
+		(q5) edge [bend right=60] node [above] {$5$} (q1)
+		;
+	\end{tikzpicture}
+	
+	\newpage
+	Слово 53555.\\
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (S) [right=.7cm of init] {$S$};
+	\node[state] (qA1) [below of=qS] {$B^1$};
+	\node[state] (qA2) [right of=qA1] {$B^2$};
+	\node[state] (qA3) [right of=qA2] {$B^3$};
+	\node[state] (qA4) [right of=qA3] {$B^4$};
+	\node[state] (qA5) [right of=qA4] {$B^5$};
+	\node[state,accepting] (qA6) [right of=qA5] {$B^6$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
+	(qS) edge node {$\eps$} (qA1)
+	(qA1) edge node {$5$} (qA2)
+	(qA2) edge node {$3$} (qA3)
+	(qA3) edge node {$5$} (qA4)
+	(qA4) edge node {$5$} (qA5)
+	(qA5) edge node {$5$} (qA6)
+	(qA6) edge [bend right] node {$\eps$} (qS)
+	;
+	\end{tikzpicture}
+	
+	\vspace{2em}
 \end{enumerate}
 
 \newpage
