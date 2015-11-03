@@ -88,7 +88,7 @@
 \begin{flushleft}
 {\large 
 Выполнил: \\
-Студент 3 курса, $N$ группы \hfill И.О. Фамилия \\[1cm]
+Студент 3 курса, 9 группы \hfill Стребежев Игорь \\[1cm]
 
 Проверил:\\
 к.т.н., ст. преп. кафедры АДМ \hfill Е.В. Алымова}
@@ -98,158 +98,259 @@
 
 \begin{center}
 Ростов-на-Дону\\
-2015
+\the\year
 \end{center}
 \end{titlepage}
 
-%%%%%%%%%%%%%%%%%%%%  Ссылки %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 1) Нарисовать нужный символ и узнать код:
-%     http://detexify.kirelabs.org/classify.html
-% 2) Список символов:
-%     http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
-
-%%%%%%%%%%%%%%%%%%%%% Важные моменты %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 0) Все латинские (и греческие) буквы считаются
-%     математическими символами и потому пишутся в
-%     «математической моде», то есть между $...$ для
-%     внутристрочных формул и \[...\] для выключных (не $$...$$, как
-%     часто пишут).
-% 1) Не забывайте про знаки препинания в формулах (точки, запятые).
-% 2) Правильно: L^+, a^*, f\colon A \to B,  неправильно: L+, a*, f: A -> B.
-% 3) Обращайте внимание на спелл-чекер (красное подчёркивание слов
-%     с ошибками и неизвестных слов).
-% 4) Пустое слово обозначается символом $\eps$, а не $e$.
-% 5) В записи множеств наподобие $\{ h(w) \mid w \in L \}$
-%     следует использовать команду \mid, а не |.
-%     Обратите также внимание, что для печати символов { и }
-%     необходимы ‘\’, иначе скобки понимаются как средство
-%     группировки, например: a_{n-1} (n-1 это нижний индекс).
-
-%%%%%%%%%%%%%%%%%%%%% Часто используемые символы %%%%%%%%%%%%%%%%
-% Большинство значков используется в математическом режиме:
-%     внутри $...$ или \[...\].
-% - символ  |- это  \vdash.
-% - греческие буквы: \alpha, \beta, \gamma, \eps,...
-%     или заглавные: \Alpha, \Sigma, \Omega,...
-% - принадлежит (элемент множеству): \in
-% - индексы: a^n, L_i, L^+, L^*
-% - объединение/пересечение:
-%     двух множеств: A \cup B, A \cap B,
-%     семейства множеств: \bigcup_{n \ge 0} L^n
-% - нестрогие неравенства: \le, \ge,
-% - пустое множество: \es
-% - кавычки в тексте: <<текст>>
-% - троеточие: \ldots, а не ...! Заполнение точками: \dotfill
-% - угловые скобки: \langle \rangle
-% - Для тире следует использовать --- а не один -
-% - Для длины слова: | а не \mid.
-% - Текст внутри формулы: \text.
-% - Кавычки: не ", а <<ёлочки>> для русских слов и дважды ' ' для английских.
-%   образец кавычек-ёлочек для русских слов «праволинейный»
-% - Не пишите слова типа begin и liFe внутри $$: у них будут неверные пробелы между буквами,
-%    используйте обычный курсив: \emph{здесь курсив}.
-% - Для горизонтального отступа в формуле вместо mspace: \quad или \qquad (поменьше и побольше).
-% - Следите за длинными формулами. Если формулы две, например, h(0)=a, h(1)=b, то нужно
-%    ставить их в две разные пары долларов: $h(0)=a$, $h(1)=b$, а не в одну. Если формулы
-%    длинная и плохо помещается на строке (выходит на поля), то делайте её выключной (т.е. \[...\]).
-% - Следите за знаками препинания. В и~т.~д. желательно ставить вот такие ~ (неразрывный пробел).
-% - разбивайте строки с помощью Enter на более короткие, иначе под Git'ом неудобно diff'ы смотреть.
-%%%%%%%%%%%%%%%%%%%%% Крупные элементы %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Системы уравнений:
-%\begin{equation}% нумерованное уравнение
-%    \begin{cases}
-%        X_1 = 1X_1 + 0X_2 + \es X_3; \\
-%        X_2 = 1X_1 + \es X_2 + 0X_3; \\
-%        X_3 = 0X_1 + \es X_2 + 1X_3.
-%    \end{cases}
-%\end{equation}
-% Если нужна текстовая вставка внутри любой формулы
-% (например, системы уравнений), она делается с помощью
-% команды \text{текст}.
-%
-% Продукции:
-%\begin{equation}
-%\begin{array}{l}
-%    S \to 1A \mid 2S; \\
-%    A \to 0B \mid 0S \mid 1A; \\
-%    B \to 1C \mid 2C; \\
-%    C \to \eps \mid 1S \mid 2A.
-%\end{array}
-%\end{equation}
-%
-% Матрицы (с любыми скобками) и другие элементы:
-% http://en.wikibooks.org/wiki/LaTeX/Mathematics#Matrices_and_arrays
-%
-% Нумерованные списки:
-%\begin{enumerate}
-%    \item пункт
-%    \item и ещё…
-%\end{enumerate}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%						Текст курсовой						%
+%		Текст курсовой				
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Задание 1}
-Условие задания.
-\begin{enumerate}[label=(\roman{*})]
-	\item Построим ПЛ-грамматику...
-	\item \ldots
-	\item Пример задания автомата диаграммой переходов:\\
-\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
-	\node (init) {};
-	\node[state] (q0) [right=.7cm of init] {$q_0$};
-	\node[state] (q1) [above right of=q0] {$q_1$};
-    \node[state] (q2) [right of=q0] {$q_2$};
-    \node[state] (q3) [below right of=q0] {$q_3$};
-	\node[state,accepting] (qf) [right of=q2, above right of=q3] {$q_f$};
 
-	\path[->]
-    	(init) edge (q0)
-		(q0) edge [loop above] node {$1, 2, 3$} (q0)
-		(q0) edge node {$1$} (q1)
-        (q0) edge node {$2$} (q2)
-        (q0) edge node {$3$} (q3)
-        (q1) edge [loop above] node[right] {$1, 2, 3$} (q1)
-        (q1) edge node {$1$} (qf)
-        (q2) edge [loop above] node[right] {$1, 2, 3$} (q2)
-        (q2) edge node {$2$} (qf)
-        (q3) edge [loop above] node[right] {$1, 2, 3$} (q3)
-        (q3) edge node {$3$} (qf);
-\end{tikzpicture}
-	\item Пример задания функции переходов таблицей:\\
-		\begin{tabular}{llll}
+Вариант 18. Язык над алфавитом $\Sigma = \{ 0, 1 \} $, состоящий из всех слов, в которых после третьей слева единицы стоит четное число групп вида 01.
+
+\begin{enumerate}[label=(\roman{*})]
+	\item Построить ПЛ-грамматику $G$, порождающую $L$.
+	
+	\begin{equation}
+		\begin{array}{l}
+			S \to 0S \mid 1A, \\
+			A \to 0A \mid 1B, \\
+			B \to 0B \mid 1C \mid 1, \\
+			C \to 0101C \mid 0101;
+		\end{array}
+	\end{equation}
+	
+	\item Доказать вложения $L \subseteq L(G)$, $L(G) \subseteq L$.\\
+	
+	\underline{$L \subseteq L(G)$}: Рассмотрим дерево выводов грамматики.
+	
+	$S \implies 0S \implies 00S \implies 000S \implies \dots$ --- нули разрешены в начале слов в $L$.
+	
+	$S \implies 1A \implies 10A \implies 100A \implies \dots$ --- генерация первой единицы и последовательности нулей.
+	
+	Первые три правила грамматики одинаковы и образуют три пары из последовательности (возможно пустой) нулей и единицы. Что также удовлетворяет описанию языка~$L$.
+	
+	$11B \implies 111 $ --- в таком случае количество групп вида 01 будет равно нулю (чётно), принадлежит языку.
+	
+	$11B \implies 111C \implies 111\ 0101$ --- генерация пары групп.
+	
+	$11B \implies 111C \implies 111\ 0101C \implies 111\ 0101\ 0101$ --- всегда чётное количество групп.
+	
+	Таким образом все слова, порождаемые грамматикой $G$ принадлежат языку $L$, то есть $L \subseteq L(G)$.\\
+	
+	
+	\underline{$L(G) \subseteq L$}: Язык L имеет структуру $(0*1)(0*1)(0*1)(1010)*$, каждую цепочку этого языка можно получить применяя правила грамматики, как показано в предыдущем пункте, что и доказывает вложение.
+	
+	\item Путём решения системы линейных уравнений с регулярными коэффициентами построить регулярное выражение, описывающее $L$.
+	
+	
+	\begin{equation}
+		\begin{array}{l}
+		S = 0S + 1A, \\
+		A = 0A + 1B, \\
+		B = 0B + 1C + 1, \\
+		C = 0101C + 0101; \\\\
+		
+		C = (0101)^*0101 = 0101^+, \\
+		B = 0B + 1(0101^+ + \eps) = 0^* 1(0101^+ + \eps), \\
+		A = 0A + 1(0^* 1(0101^+ + \eps)) = 0^* 1(0^* 1(0101^+ + \eps)), \\
+		S = 0S + 1(0^* 1(0^* 1(0101^+ + \eps))) = 0^* 1(0^* 1(0^* 1(0101^+ + \eps))); \\\\
+		
+		0^* 1(0^* 1(0^* 1(0101^+ + \eps))) = (0^*1) (0^*1) (0^*1) (0101)^*.
+		\end{array}
+	\end{equation}
+	
+	
+	\item Построить НКА или \emph{e}-НКА $M^{ND}$, распознающий язык $L$, предъявить его граф. \\
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (qS) [right=.7cm of init] {$S$};
+		\node[state] (qA) [right of=qS] {$A$};
+		\node[state] (qB) [right of=qA] {$B$};
+		\node[state] (qC) [right of=qB] {$C$};
+		\node[state,accepting] (qF) [below of=qB] {$F$};
+		\node[state,accepting] (qE) [below of=qC] {$E$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$0$} (qS)
+		(qS) edge node {$1$} (qA)
+		(qA) edge [loop above] node {$0$} (qA)
+		(qA) edge node {$1$} (qB)
+		(qB) edge [loop above] node {$0$} (qB)
+		(qB) edge node {$1$} (qF)
+		(qB) edge node {$1$} (qC)
+		(qC) edge [loop above] node {$0101$} (qC)
+		(qC) edge node {$0101$} (qE)
+		;
+	\end{tikzpicture}
+	
+	\item Построить ДКА $M^D$ путём детерминизации $M^{ND}$, предъявить его граф. \\
+	
+	Построим таблицу переходов $M^{ND}$.
+	
+	\begin{tabular}{lcccccccccccc}
 		\toprule
-		\multicolumn{1}{c}{\multirow{2}{*}{\Large $\delta^\prime$}}
-			& \multicolumn{3}{c}{Вход} \\
-		\cmidrule(rl){2-4}
-			& \multicolumn{1}{c}{1}
-				& \multicolumn{1}{c}{2}
-				& \multicolumn{1}{c}{3} \\
+		\multicolumn{1}{c}{
+			$\delta^\prime \mid$
+		} 
+		& \multicolumn{1}{c}{ $S$ }
+		& \multicolumn{1}{c}{ $A$ }
+		& \multicolumn{1}{c}{ $B$ }
+		& \multicolumn{1}{c}{ $C$ }
+		& \multicolumn{1}{c}{ $K^0$ }
+		& \multicolumn{1}{c}{ $K^{01}$ }
+		& \multicolumn{1}{c}{ $K^{010}$ }
+		& \multicolumn{1}{c}{ $E^0$ }
+		& \multicolumn{1}{c}{ $E^{01}$ }
+		& \multicolumn{1}{c}{ $E^{010}$ }
+		& \multicolumn{1}{c}{ $E$ }
+		& \multicolumn{1}{c}{ $F$ }
+		\\
 		\midrule
-		$\{0\}$         & $\{0;1\}$       & $\{0;2\}$       & $\{0;3\}$       \\
-		$\{0;1\}$       & $\{0;1;f\}$     & $\{0;1;2\}$     & $\{0;1;3\}$     \\
-		$\{0;2\}$       & $\{0;1;2\}$     & $\{0;2;f\}$     & $\{0;2;3\}$     \\
-		$\{0;3\}$       & $\{0;1;3\}$     & $\{0;2;3\}$     & $\{0;3;f\}$     \\
-		$\{0;1;2\}$     & $\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;3\}$   \\
-		$\{0;1;3\}$     & $\{0;1;3;f\}$   & $\{0;1;2;3\}$   & $\{0;1;3;f\}$   \\
-		$\{0;1;f\}$     & $\{0;1;f\}$     & $\{0;1;2\}$     & $\{0;1;3\}$     \\
-		$\{0;2;3\}$     & $\{0;1;2;3\}$   & $\{0;2;3;f\}$   & $\{0;2;3;f\}$   \\
-		$\{0;2;f\}$     & $\{0;1;2\}$     & $\{0;2;f\}$     & $\{0;2;3\}$     \\
-		$\{0;3;f\}$     & $\{0;1;3\}$     & $\{0;2;3\}$     & $\{0;3;f\}$     \\
-		$\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;f\}$   & $\{0;1;2;3\}$   \\
-		$\{0;1;3;f\}$   & $\{0;1;3;f\}$   & $\{0;1;2;3\}$   & $\{0;1;3;f\}$   \\
-		$\{0;2;3;f\}$   & $\{0;1;2;3\}$   & $\{0;2;3;f\}$   & $\{0;2;3;f\}$   \\
-		$\{0;1;2;3\}$   & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ \\
-		$\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ & $\{0;1;2;3;f\}$ \\ \bottomrule
-		\end{tabular}
+		
+		0 $\mid$ &
+		$S$ & $A$ & $B$ & $\{K^0, E^0\}$ & --- & $K^{010}$ & --- & --- & $E^{010}$ & --- & --- & --- \\
+		1 $\mid$ &
+		$A$ & $B$ & $\{ C, F \}$ & --- & $K^{01}$ & --- & $C$ & $E^{01}$ & --- & $E$ & --- & ---	\\ 		
+		\bottomrule
+	\end{tabular}
+	
+	\vspace{1em}
+	
+	Расширим таблицу при приведении автомата в $M^D$.
+	
+	
+	\begin{tabular}{lcccccccc}
+		\toprule
+		\multicolumn{1}{c}{
+			$\delta^\prime \mid$
+		} 
+		& \multicolumn{1}{c}{ $S$ }
+		& \multicolumn{1}{c}{ $A$ }
+		& \multicolumn{1}{c}{ $B$ }
+		& \multicolumn{1}{c}{ $\{C, F\}$ }
+		& \multicolumn{1}{c}{ $\{K^{ 0 }, E^{ 0 }\}$ }
+		& \multicolumn{1}{c}{ $\{K^{ 01 }, E^{ 01 }\}$ }
+		& \multicolumn{1}{c}{ $\{K^{ 010 }, E^{ 010 }\}$ }
+		& \multicolumn{1}{c}{ $\{ C, E \}$ }
+		\\
+		\midrule
+		
+		0 $\mid$ &
+		$S$ & $A$ & $B$ &  $\{K^0, E^0\}$ & --- & $\{K^{ 010 }, E^{ 010 }\}$ & --- &  $\{K^{ 0 }, E^{ 0 }\}$  \\
+		1 $\mid$ &
+		$A$ & $B$ & $\{ C, F \}$ & --- &  $\{K^{ 01 }, E^{ 01 }\}$ & --- & $\{ C, E \}$ & ---	\\ 		
+		\bottomrule
+	\end{tabular}
+	
+	\vspace{1em} Отобразим этот автомат на диаграмме.
+	
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (qS) [right=.7cm of init] {$S$};
+		\node[state] (qA) [right of=qS] {$A$};
+		\node[state] (qB) [right of=qA] {$B$};
+		\node[state,accepting] (qCF) [right of=qB] {$CF$};
+		\node[state] (qKE) [right of=qCF] {$K^0E^0$};
+		\node[state,accepting] (qCE) [right of=qKE] {$CE$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$0$} (qS)
+		(qS) edge node {$1$} (qA)
+		(qA) edge [loop above] node {$0$} (qA)
+		(qA) edge node {$1$} (qB)
+		(qB) edge [loop above] node {$0$} (qB)
+		(qB) edge node {$1$} (qCF)
+		(qCF) edge node {$0$} (qKE)
+		
+		(qKE) edge  [bend left] node {$101$} (qCE)
+		(qCE) edge  [bend left] node {$0$} (qKE)
+		;
+	\end{tikzpicture}
 \end{enumerate}
 
 \newpage
 \section*{Задание 2}
-Условие задания.
-\begin{enumerate}[label=(\roman{*})]
-	\item \ldots
+Вариант 29. $\Sigma = \{ 0, 1, 2, 3, 4, 5 \}$, $A = \{ 53150, 53555, 5510, 0001 \}$.
+
+\begin{enumerate}
+	\item Для каждого слова $w_i \in A$ построить НКА $M_i^{ND}$, распознающий наличие в произвольной строке $s \in \Sigma^*$ подстроки $w_i$.
+	\item Для каждого НКА $M_i^{ND}$ построить соответствующий ДКА $M_i^{D}$.\\
+	
+	Слово 53150.\\
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (S) [right=.7cm of init] {$S$};
+		\node[state] (qA1) [below of=qS] {$A^1$};
+		\node[state] (qA2) [right of=qA1] {$A^2$};
+		\node[state] (qA3) [right of=qA2] {$A^3$};
+		\node[state] (qA4) [right of=qA3] {$A^4$};
+		\node[state] (qA5) [right of=qA4] {$A^5$};
+		\node[state,accepting] (qA6) [right of=qA5] {$A^6$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
+		(qS) edge node {$\eps$} (qA1)
+		(qA1) edge node {$5$} (qA2)
+		(qA2) edge node {$3$} (qA3)
+		(qA3) edge node {$1$} (qA4)
+		(qA4) edge node {$5$} (qA5)
+		(qA5) edge node {$0$} (qA6)
+		(qA6) edge [bend right] node {$\eps$} (qS)
+		;
+	\end{tikzpicture}
+	
+	\vspace{2em}
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (S) [right=.7cm of init] {$S$};
+	\node[state] (q1) [right=3cm of qS] {$q1$};
+	\node[state] (q2) [below of=q1] {$q2$};
+	\node[state] (q3) [below of=q2] {$q3$};
+	\node[state] (q4) [below of=q3, right=0.7cm of q3] {$q4$};
+	\node[state,accepting] (q5) [below right of=q4] {$q5$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+	
+	(qS) edge [bend left] node {$ 5 $} (q1)
+	(q1) edge [bend left] node {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+	
+	(q1) edge [loop above] node {$ 5 $} (q1)
+	(q1) edge [bend left] node {$3$} (q2)
+	
+	(q2) edge [bend left] node {$5$} (q1)
+	(q2) edge [bend left=10] node {\small{$0, 2, 3, 4$}} (qS)
+	(q2) edge node {$1$} (q3)
+	
+	(q3) edge node {$5$} (q4)
+	(q3) edge [bend left] node[right] {\small{$0, 1, 2, 3, 4$}} (qS)
+	
+	(q4) edge [bend right] node {$3$} (q2)
+	(q4) edge [bend right] node {$5$} (q1)
+	(q4) edge [bend left=40] node {\small{$1, 2, 4$}} (qS)
+	
+	(q4) edge node {$0$} (q5)
+	
+	(q5) edge [bend right] node {$5$} (q1)
+	(q5) edge [bend left=60] node {\small{$0, 1, 2, 3, 4$}} (qS)
+	
+	
+	
+	;
+	\end{tikzpicture}
+	
+	
 \end{enumerate}
 
 \newpage
@@ -258,5 +359,6 @@
 \begin{enumerate}[label=(\roman{*})]
 	\item \ldots
 \end{enumerate}
+
 
 \end{document}
