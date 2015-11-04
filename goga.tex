@@ -537,7 +537,155 @@ $L_1 = b^*bba^*(ab + b)^*$, $L_2 = a^*ba^*ab$.
 	
 	Так как $L_1 \cap L_2 = \emptyset$, то $L_1 \neq L_2$.\\\\ Предположим, $L_1$ является дополнением $L_2$. Рассмотрим слово $w = "ba"$. Видно, что \\ $w \not\in L_1,\ w \not\in L_2 \To $ наше предположение неверно.
 	
-	\item 
+	\item Построить \emph{e}-НКА, распознающий один из языков $L_1^R$ или $L_2^R$.
+	
+	Построим $L_2$:
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (S) [right=.7cm of init] {$0$};
+	\node[state] (q1) [right of=qS] {$1$};
+	\node[state] (q2) [right of=q1] {$2$};
+	\node[state] (q3) [right of=q2] {$3$};
+	\node[state] (q4) [right of=q3] {$4$};
+	\node[state,accepting] (q5) [right of=q4] {$5$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [bend left] node [above] {$a, \eps$} (q1)
+	(q1) edge [bend left] node [below] {$\eps$} (qS)
+	
+	(q1) edge node {$b$} (q2)
+	
+	(q2) edge [bend left] node [above] {$a, \eps$} (q3)
+	(q3) edge [bend left] node [below] {$\eps$} (q2)
+	
+	(q3) edge node {$a$} (q4)
+	(q4) edge node {$b$} (q5)
+	
+	;
+	\end{tikzpicture}
+	
+	
+	Построим $L_2^R$:
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state,accepting] (S) [right=.7cm of init] {$0$};
+	\node[state,accepting] (q1) [right of=qS] {$1$};
+	\node[state,accepting] (q2) [right of=q1] {$2$};
+	\node[state,accepting] (q3) [right of=q2] {$3$};
+	\node[state,accepting] (q4) [right of=q3] {$4$};
+	\node[state] (q5) [right of=q4] {$5$};
+	
+	\node[state,accepting] (n2) [below of=q2] {$6$};
+	\node[state,accepting] (n5) [right of=q5] {$8$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [bend left] node [above] {$a, \eps$} (q1)
+	(q1) edge [bend left] node [below] {$\eps$} (qS)
+	
+	(q1) edge node {$b$} (q2)
+	
+	(q2) edge [bend left] node [above] {$a, \eps$} (q3)
+	(q3) edge [bend left] node [below] {$\eps$} (q2)
+	
+	(q3) edge node {$a$} (q4)
+	(q4) edge node {$b$} (q5)
+	
+	(q2) edge node {$b$} (n2)
+	(n2) edge [loop left] node [above] {$a, b$} (n2)
+	
+	(q5) edge node {$a, b$} (n5)
+	(n5) edge [loop right] node [above] {$a, b$} (n5)
+	
+	;
+	\end{tikzpicture}
+	
+	\item Вычислить регулярное выражение по построенному \emph{e}-НКА.
+	
+	Упростим построенный в предыдущем пункте автомат, используя метод исключения.
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state,accepting] (qS) [right=.7cm of init] {$0$};
+	\node[state,accepting] (q2) [right=3cm of qS] {$2$};
+	\node[state,accepting] (q4) [right=3cm of q2] {$4$};
+	
+	\node[state,accepting] (n2) [below of=q2] {$6$};
+	\node[state,accepting] (n5) [right=2cm of q4] {$8$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node [left] {$a$} (qS)
+	
+	(qS) edge node {$b$} (q2)
+	
+	(q2) edge [loop above] node [left] {$a$} (q2)
+	
+	(q2) edge node {$a$} (q4)
+	
+	(q2) edge node {$b$} (n2)
+	(n2) edge [loop left] node [above] {$a, b$} (n2)
+	
+	(q4) edge node [above] {$b(a+b)^+$} (n5)
+	
+	;
+	\end{tikzpicture}
+	
+	Опишем заключающее состояние в вершине 8: $R = a^*ba^*ab(a+b)^+$.
+	\newpage
+	
+	Уберём вершину 8, опишем состояние в вершине 4:
+	$R = a^*ba^*a\ (\eps + b(a+b)^+) $.
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state,accepting] (qS) [right=.7cm of init] {$0$};
+	\node[state,accepting] (q2) [right=3cm of qS] {$2$};
+	\node[state,accepting] (q4) [right=3.5cm of q2] {$4$};
+	
+	\node[state,accepting] (n2) [below of=q2] {$6$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node [left] {$a$} (qS)
+	
+	(qS) edge node {$b$} (q2)
+	
+	(q2) edge [loop above] node [left] {$a$} (q2)
+	
+	(q2) edge node {$a\ (\eps + b(a+b)^+)$} (q4)
+	
+	(q2) edge node {$b(a+b)^*$} (n2)	
+	;
+	\end{tikzpicture}
+	
+	Уберём вершины 4, 6, опишем состояние в вершине 2:\\
+	$R = a^*ba^*\ (\eps\ +\ b(a+b)^* +\ a (\eps + b(a+b)^+)) $.
+	
+	\vspace{1em}
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state,accepting] (qS) [right=.7cm of init] {$0$};
+	\node[state,accepting] (q2) [right=3cm of qS] {$2$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node [left] {$a$} (qS)
+	
+	(qS) edge node {$b$} (q2)
+	
+	(q2) edge [loop above] node [left] {$a$} (q2)
+	;
+	\end{tikzpicture}
+	
+	\vspace{1em}
+	
+	Данный автомат можно описать выражением $\eps + a^* + a^*b + a^*ba^* = a^*(b+\eps)a^*$.\\\\
+	Ответ: $R = a^*(b+\eps)a^*\ (\eps\ +\ b(a+b)^*\ +\ a (\eps + b(a+b)^+))$.
 	
 	
 \end{enumerate}
