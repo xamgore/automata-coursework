@@ -417,8 +417,8 @@
 	
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
 		\node (init) {};
-		\node[state] (S) [right=.7cm of init] {$S$};
-		\node[state] (qA1) [below=1cm of qS] {$C^1$};
+		\node[state] (qS) [right=.7cm of init] {$S$};
+		\node[state] (qA1) [right=1cm of qS] {$C^1$};
 		\node[state] (qA2) [right of=qA1] {$C^2$};
 		\node[state] (qA3) [right of=qA2] {$C^3$};
 		\node[state] (qA4) [right of=qA3] {$C^4$};
@@ -432,40 +432,89 @@
 		(qA2) edge node {$5$} (qA3)
 		(qA3) edge node {$1$} (qA4)
 		(qA4) edge node {$0$} (qA5)
-		(qA5) edge [bend right] node {$\eps$} (qS)
+		(qA5) edge [bend right=40, looseness=0.4] node {$\eps$} (qS)
+		;
+	\end{tikzpicture}
+	
+	\vspace{2em}
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node[state] (qS) {$S$};
+		\node[state] (q3) [below of=qS] {$q3$};
+		\node[state] (q2) [right of=q3] {$q2$};
+		\node[state,accepting] (q4) [left of=q3] {$q4$};
+		\node[state] (q1) [below of=q3] {$q1$};
+		
+		\path[->]
+		(qS) edge [loop above] node [above] {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+		(qS) edge [bend left=80, looseness=2.5] node {$ 5 $} (q1)
+		
+		
+		(q1) edge [bend left=80, looseness=2.5] node {\small{$ 0, 1, 2, 3, 4 $}} (qS)
+		(q1) edge node [below] {$5$} (q2)
+		
+		(q2) edge node [above, rotate=-45] {\small{$0, 2, 3, 4$}} (qS)
+		(q2) edge [loop above] node {$ 5 $} (q2)
+		(q2) edge node {$1$} (q3)
+		
+		(q3) edge node {$5$} (q1)
+		(q3) edge node [above, rotate=-90] {\small{$1, 2, 3, 4$}} (qS)
+		(q3) edge node {$0$} (q4)
+		
+		(q4) edge node [below] {$5$} (q1)
+		(q4) edge node [above, rotate=45] {\small{$0, 1, 2, 3, 4$}} (qS)
+		;
+	\end{tikzpicture}
+	
+	Слово 0001.\\
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+		\node (init) {};
+		\node[state] (qS) [right=.7cm of init] {$S$};
+		\node[state] (qA1) [right=1cm of qS] {$D^1$};
+		\node[state] (qA2) [right of=qA1] {$D^2$};
+		\node[state] (qA3) [right of=qA2] {$D^3$};
+		\node[state] (qA4) [right of=qA3] {$D^4$};
+		\node[state,accepting] (qA5) [right of=qA4] {$D^5$};
+		
+		\path[->]
+		(init) edge (qS)
+		(qS) edge [loop above] node {$ 0, 1, 2, 3, 4, 5 $} (qS)
+		(qS) edge node {$\eps$} (qA1)
+		(qA1) edge node {$0$} (qA2)
+		(qA2) edge node {$0$} (qA3)
+		(qA3) edge node {$0$} (qA4)
+		(qA4) edge node {$1$} (qA5)
+		(qA5) edge [bend right=40, looseness=0.4] node {$\eps$} (qS)
 		;
 	\end{tikzpicture}
 	
 	\vspace{3em}
 	
+	
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
-		\node (init) {};
-		\node[state] (qS) [right=.7cm of init] {$S$};
-		\node[state] (q3) [right of=qS] {$q3$};
-		\node[state] (q2) [above of=q3] {$q2$};
-		\node[state,accepting] (q4) [below of=q3] {$q4$};
-		\node[state] (q1) [right of=q3] {$q1$};
-		
-		\path[->]
-		(init) edge (qS)
-		(qS) edge [loop above] node [left] {\small{$ 0, 1, 2, 3, 4 $}} (qS)
-		(qS) edge [bend left=80, looseness=2.5] node {$ 5 $} (q1)
-		
-		
-		(q1) edge [bend left=80, looseness=2.5] node {\small{$ 0, 1, 2, 3, 4 $}} (qS)
-		(q1) edge node [above] {$5$} (q2)
-		
-		(q2) edge node [above, rotate=45] {\small{$0, 2, 3, 4$}} (qS)
-		(q2) edge [loop above] node {$ 5 $} (q2)
-		(q2) edge node {$1$} (q3)
-		
-		(q3) edge node {$5$} (q1)
-		(q3) edge node [above] {\small{$1, 2, 3, 4$}} (qS)
-		(q3) edge node {$0$} (q4)
-		
-		(q4) edge node [above] {$5$} (q1)
-		(q4) edge node [above, rotate=-45] {\small{$0, 1, 2, 3, 4$}} (qS)
-		;
+	\node (init) {};
+	\node[state] (S) [right=.7cm of init] {$S$};
+	\node[state] (qA1) [right of=qS] {$D^1$};
+	\node[state] (qA2) [right of=qA1] {$D^2$};
+	\node[state] (qA3) [right of=qA2] {$D^3$};
+	\node[state,accepting] (qA4) [right of=qA3] {$D^4$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node [left] {$ 1, 2, 3, 4, 5 $} (qS)
+	(qS) edge node {$0$} (qA1)
+	(qA1) edge node {$0$} (qA2)
+	(qA2) edge node {$0$} (qA3)
+	(qA3) edge node {$1$} (qA4)
+	(qA4) edge [bend right=40] node [above] {$0$} (qA1)
+	(qA3) edge [loop above] node {$ 0 $} (qA3)
+	
+	(qA1) edge [bend right=40] node [above] {$ 1, 2, 3, 4, 5 $} (qS)
+	(qA2) edge [bend left=20] node {$ 1, 2, 3, 4, 5 $} (qS)
+	(qA3) edge [bend left] node {$ 2, 3, 4, 5 $} (qS)
+	(qA4) edge [bend left=40] node {$ 1, 2, 3, 4, 5 $} (qS)
+	;
 	\end{tikzpicture}
 \end{enumerate}
 
