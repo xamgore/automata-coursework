@@ -313,11 +313,11 @@
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
 	\node (init) {};
 	\node[state] (S) [right=.7cm of init] {$S$};
-	\node[state] (q1) [right=3cm of qS] {$q1$};
-	\node[state] (q2) [below of=q1] {$q2$};
-	\node[state] (q3) [below of=q2] {$q3$};
-	\node[state] (q4) [below of=q3, right=0.7cm of q3] {$q4$};
-	\node[state,accepting] (q5) [below right of=q4] {$q5$};
+	\node[state] (q1) [right=3cm of qS] {$A^1$};
+	\node[state] (q2) [below of=q1] {$A^2$};
+	\node[state] (q3) [below of=q2] {$A^3$};
+	\node[state] (q4) [below of=q3, right=0.7cm of q3] {$A^4$};
+	\node[state,accepting] (q5) [below right of=q4] {$A^5$};
 	
 	\path[->]
 	(init) edge (qS)
@@ -378,11 +378,11 @@
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
 		\node (init) {};
 		\node[state] (S) [right=.7cm of init] {$S$};
-		\node[state] (q1) [above right of=qS] {$q1$};
-		\node[state] (q2) [right of=q1] {$q2$};
-		\node[state] (q3) [below right of=q2] {$q3$};
-		\node[state] (q4) [right of=q3] {$q4$};
-		\node[state,accepting] (q5) [right of=q4] {$q5$};
+		\node[state] (q1) [above right of=qS] {$B^1$};
+		\node[state] (q2) [right of=q1] {$B^2$};
+		\node[state] (q3) [below right of=q2] {$B^3$};
+		\node[state] (q4) [right of=q3] {$B^4$};
+		\node[state,accepting] (q5) [right of=q4] {$B^5$};
 		
 		\path[->]
 		(init) edge (qS)
@@ -440,10 +440,10 @@
 	
 	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
 		\node[state] (qS) {$S$};
-		\node[state] (q3) [below of=qS] {$q3$};
-		\node[state] (q2) [right of=q3] {$q2$};
-		\node[state,accepting] (q4) [left of=q3] {$q4$};
-		\node[state] (q1) [below of=q3] {$q1$};
+		\node[state] (q3) [below of=qS] {$C^3$};
+		\node[state] (q2) [right of=q3] {$C^2$};
+		\node[state,accepting] (q4) [left of=q3] {$C^4$};
+		\node[state] (q1) [below of=q3] {$C^1$};
 		
 		\path[->]
 		(qS) edge [loop above] node [above] {\small{$ 0, 1, 2, 3, 4 $}} (qS)
