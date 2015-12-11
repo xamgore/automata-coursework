@@ -688,8 +688,208 @@ $L_1 = b^*bba^*(ab + b)^*$, $L_2 = a^*ba^*ab$.
 	Данный автомат можно описать выражением $\eps + a^* + a^*b + a^*ba^* = a^*(b+\eps)a^*$.\\\\
 	Ответ: $R = a^*(b+\eps)a^*\ (\eps\ +\ b(a+b)^*\ +\ a (\eps + b(a+b)^+))$.
 	
+	\newpage
+	
+	\item Построить $\eps$-НКА, распознающий $L_1 L_2$. \\ $q0 = S$, остальные состояния пронумерованы от 1 до 9 ($q1 - q9$).
+	
+	\includegraphics[width=11cm]{task3_NF}
+	
+	
+	\item Детерминизировать один из построенных $\eps$-НКА. Верхние индексы для удобства.
+	
+	\begin{tabular}{lcccccccc}
+		\toprule
+		\multicolumn{1}{c}{
+			$\delta^\prime \mid$
+		} 
+		& \multicolumn{1}{c}{ $S^0$ }
+		& \multicolumn{1}{c}{ $S1^1$ }
+		& \multicolumn{1}{c}{ $S12356^2$ }
+		& \multicolumn{1}{c}{ $23456^3$ }
+		& \multicolumn{1}{c}{ $S123567^4$ }
+		& \multicolumn{1}{c}{ $3567^5$ }
+		& \multicolumn{1}{c}{ $234568^6$ }
+		& \multicolumn{1}{c}{ $468^7$ }
+		
+		\\
+		\midrule
+		
+		$a$ $\mid$ &
+		--- & --- & $23456^3$ & $23456^3$ & $234568^6$ & $468^7$ & $234567^8$ &  $67^{10}$  \\
+		$b$ $\mid$ &
+		$S1^1$ & $S12356^2$ & $S123567^4$ & $3567^5$ & $S123567^4$ & $3567^5$ & $35679^9$ & $35679^9$ \\ 		
+		\bottomrule
+	\end{tabular}
+	
+	\vspace{1em} 
+	
+	\begin{tabular}{lcccccccc}
+		\toprule
+		\multicolumn{1}{c}{
+			$\delta^\prime \mid$
+		} 
+		& \multicolumn{1}{c}{ $234567^8$ }
+		& \multicolumn{1}{c}{ $35679^9$ }
+		& \multicolumn{1}{c}{ $67^{10}$ }
+		& \multicolumn{1}{c}{ $68^{11}$ }
+		& \multicolumn{1}{c}{ $7^{12}$ }
+		& \multicolumn{1}{c}{ $79^{13}$ }
+		& \multicolumn{1}{c}{ $8^{14}$ }
+		& \multicolumn{1}{c}{ $9^{15}$ }
+		
+		\\
+		\midrule
+		
+		$a$ $\mid$ &
+		$234568^6$ & $468^7$ & $68^{11}$ & $67^{10}$ & $8^{14}$ & $8^{14}$ & --- & ---   \\
+		$b$ $\mid$ &
+		$3567^5$ & $3567^5$ & $7^{12}$ & $79^{13}$ & --- & --- & $9^{15}$ & --- \\ 		
+		\bottomrule
+	\end{tabular}
 	
 \end{enumerate}
+
+\section*{Задание 1}
+
+\begin{enumerate}[label=(\roman{*})]
+	\setcounter{enumi}{5}
+	\item Доказать, что $L(M^{ND}) = L(M^D) = L$.
+	
+	Так как мы получили $M^D$ путём детерминизации $M^{ND}$, то по теореме о редукции
+	языки этих автоматов эквивалентны. Построение $M^{ND}$ производилось по регулярной грамматике, и по теореме Клини следует, что $L(G) = L(M^{ND})$. Равенство же $L(G) = L$ было доказано во втором пункте первого задания. Таким образом тождество доказано.
+	
+	\item Мимимизировать полученный конечный автомат, распознающий язык $L$, или доказать его минимальность.
+	
+	Рассмотрим $M^D$. Конечные состояния $CF$ и $CE$ являются эквивалентными, поэтому их можно совместить. Все остальные состояния различимы.
+	
+	 Отобразим этот автомат на диаграмме. (101 --- два состояния с тремя дугами.)
+	 
+	 \begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	 \node (init) {};
+	 \node[state] (qS) [right=.7cm of init] {$S$};
+	 \node[state] (qA) [right of=qS] {$A$};
+	 \node[state] (qB) [right of=qA] {$B$};
+	 \node[state,accepting] (qCF) [right of=qB] {$CF$};
+	 \node[state] (qKE) [right of=qCF] {$KE$};
+	 
+	 \path[->]
+	 (init) edge (qS)
+	 (qS) edge [loop above] node {$0$} (qS)
+	 (qS) edge node {$1$} (qA)
+	 (qA) edge [loop above] node {$0$} (qA)
+	 (qA) edge node {$1$} (qB)
+	 (qB) edge [loop above] node {$0$} (qB)
+	 (qB) edge node {$1$} (qCF)
+	 (qCF) edge [bend left] node {$0$} (qKE)
+	 
+	 (qKE) edge  [bend left] node {$101$} (qCF)
+	 ;
+	 \end{tikzpicture}
+	
+	\newpage
+	\item Методом последовательного исключения состояний выписать регулярные 
+	выражения для $L(M^{ND})$, $L(M^D)$.\\
+	
+	$M^D$: Петли с нулём заменим на $0^*$, а цикл $CF-KE$ на $(1010)^*$, $L(M^D) = 0^*1\ 0^*1\ 0^*1\ (0101)^*$;
+	
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (qS) [right=.7cm of init] {$S$};
+	\node[state,accepting] (qCF) [right=2.5cm of qS] {$CF$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge node {$0^*1\ 0^*1\ 0^*1$} (qCF)
+	
+	(qCF) edge [loop right] node {$0101$} (qCF)
+	;
+	\end{tikzpicture}
+	
+	$M^{ND}$: Стянем вершину $C$, после чего разобьём $SB$ на два пути: $SE, SF$.\\
+	$L(M^{ND}) = (0^*1\ 0^*1\ 0^*1) + (0^*1\ 0^*1\ 0^*1\ (0101)^+) = 0^*1\ 0^*1\ 0^*1\ (0101)^*$.
+	
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=3cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state] (qS) [right=.7cm of init] {$S$};
+	\node[state] (qB) [right=2.5cm of qS] {$B$};
+	\node[state,accepting] (qF) [right of=qB, below=0cm of qB] {$F$};
+	\node[state,accepting] (qE) [right of=qB, above=0.1cm of qB] {$E$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge node {$0^*1\ 0^*1\ 0^*$} (qB)
+	(qB) edge node [above,rotate=-23] {$1$} (qF)
+	(qB) edge node [above,rotate=23] {$1\ (0101)^+$} (qE)
+	;
+	\end{tikzpicture}
+	
+	\item Построить ДКА, распознающий дополнение $!L$ к языку $L$, 
+	записать $!L$ в виде регулярного выражения.
+	
+	Доопределим автомат до полного, преобразуем его в дополнение.
+	
+	\begin{tikzpicture}[auto,>=stealth', node distance=2cm,auto,every state/.style={thick}]
+	\node (init) {};
+	\node[state,accepting] (qS) [right=.7cm of init] {$S$};
+	\node[state,accepting] (qA) [right of=qS] {$A$};
+	\node[state,accepting] (qB) [right of=qA] {$B$};
+	\node[state] (qCF) [right of=qB] {$CF$};
+	\node[state,accepting] (qKE) [right of=qCF] {$KE$};
+	\node[state,accepting] (qKU) [right of=qKE] {$KU$};
+	\node[state,accepting] (qKL) [right of=qKU] {$KL$};
+	\node[state,accepting] (C) [below of=qCF] {$C$};
+	
+	\path[->]
+	(init) edge (qS)
+	(qS) edge [loop above] node {$0$} (qS)
+	(qS) edge node {$1$} (qA)
+	(qA) edge [loop above] node {$0$} (qA)
+	(qA) edge node {$1$} (qB)
+	(qB) edge [loop above] node {$0$} (qB)
+	(qB) edge node {$1$} (qCF)
+	(qCF) edge node {$0$} (qKE)
+	(qKE) edge node {$1$} (qKU)
+	(qKU) edge node {$0$} (qKL)
+	(qKL) edge [bend right] node [above] {$1$} (qCF)
+	
+	(qCF) edge node {$1$} (C)
+	(qKE) edge [bend left] node [above] {$0$} (C)
+	(qKU) edge [bend left] node [above] {$1$} (C)
+	(qKL) edge [bend left] node [above] {$0$} (C)
+	(C) edge [loop left] node {$0, 1$} (C)
+	;
+	\end{tikzpicture}
+	
+	Построим грамматику, порождающую этот автомат.
+	\begin{equation}
+		\begin{array}{l}
+		S \to \eps \mid 0S \mid 1A, \\
+		A \to \eps \mid 0A \mid 1B, \\
+		B \to \eps \mid 0B \mid 1CF, \\
+		CF \to 0KE \mid 1C, \\
+		KE \to \eps \mid 1KU \mid 0C, \\
+		KU \to \eps \mid 0KL \mid 1C, \\
+		KL \to \eps \mid 1CF \mid 0C, \\
+		C \to \eps \mid 1C \mid 0C; 
+		\end{array}
+	\end{equation}
+	
+	Решим систему уравнений:\\
+	
+	$KE = 101CF + 1 + 10 + (0 + 11 + 100)(0+1)^* + \eps$,
+	
+	$CF = 0101CF + 0 + 01 + 010 + (1 + 00 + 011 + 0100)(0+1)^* + \eps$,
+	
+	$CF = (0101)^*(0 + 01 + 010 + (1 + 00 + 011 + 0100)(0+1)^* + \eps)$,
+	
+	$S = 0^*(\eps + 10^*(\eps + 10^*(\eps + 1CF))) = 0^* + 0^*10^* + 0^*10^*1\,CF$
+	
+	Ответ: $0^* + 0^*10^* + 0^*10^*1\,(0101)^*(0 + 01 + 010 + (1 + 00 + 011 + 0100)(0+1)^* + \eps)$.
+	
+\end{enumerate}
+
 
 
 \end{document}
