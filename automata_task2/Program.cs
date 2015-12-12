@@ -17,7 +17,7 @@ namespace automata_task2 {
                     new Final(_ => count0001++, "D4"),
                 }, rules);
 
-            machine.Run("000100010001005355553555315000000005355553555");
+            machine.Run("0001531505355510001");
 
             var @out = new[] { $"53150: {count53150}", $"53555: {count53555}", $"5510: {count5510}", $"0001: {count0001}" };
             Console.WriteLine(string.Join("\n", @out));

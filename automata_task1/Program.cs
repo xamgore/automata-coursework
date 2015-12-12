@@ -5,12 +5,12 @@ using lib;
 namespace automata_task1 {
     static class Program {
         static void Main(string[] args) {
-            var word = "0000100000100000101010101";
+            var word = "";
 
             var gotEnd = false;
             var machine = new Automaton(
                 new[] {
-                    new Final(state => gotEnd = word.Length == state.Position, "F", "E")
+                    new Final(state => gotEnd = word.Length == state.Position, "F", "E", "S")
                 }, rules);
 
             machine.Run(word);

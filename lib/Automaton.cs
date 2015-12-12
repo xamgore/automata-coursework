@@ -27,13 +27,16 @@ namespace lib {
 
                 IsFinal(curState);
 
+                Debug.WriteLine($"\n\t\t\t\t  {word.Substring(0, curState.Position)}");
+
                 WithNextOf(curState, nextStates => nextStates
-                    .Where(rule => curState.Position < word.Length)
-                    .Where(rule => rule.Symbol == EPS || rule.Symbol == word[curState.Position])
-                    .Middleware(rule => rule.Display(curState))
+                    .Where(rule => rule.Symbol == EPS || curState.Position < word.Length && rule.Symbol == word[curState.Position])
+                    .Middleware(rule => rule.Display(curState, word))
                     .Select(rule => rule.NextState(curState))
                     .ForEach(state => que.Enqueue(state)));
             }
+
+            Debug.WriteLine("");
         }
 
         void IsFinal(State curState) {
@@ -63,12 +66,13 @@ namespace lib {
         public Rule(string @from, char symbol, char to) : this(@from, symbol, to.ToString()) { }
 
         public State NextState(State curState) {
-            return new State(To, curState.Position + (Symbol.Equals(Automaton.EPS) ? 0 : 1));
+            return new State(To, curState.Position + (Symbol == Automaton.EPS ? 0 : 1));
         }
 
-        public void Display(State curState) {
+        public void Display(State curState, string word = null) {
             var next = NextState(curState);
-            Debug.WriteLine($"{curState.Name} \t-> {To}\t\"{Symbol}\" | {next.Position}");
+            var substr = string.IsNullOrEmpty(word) ? "" : word.Substring(0, next.Position);
+            Debug.WriteLine($"{curState.Name} \t-> {To}\t\"{Symbol}\" | {substr}");
         }
 
         public override string ToString() => $"{From} {Symbol}> {To}";
