@@ -7,7 +7,7 @@ using lib;
 namespace automata_task3 {
     static class Program {
         static void Main(string[] args) {
-            var word = "bbbbbbbaaaaaababbbbabaaaabaaaaab";
+            var word = "bbbab";
 
             Console.WriteLine($"ДКА: {Детерминированный(word)}");
             Console.WriteLine($"НКА: {Недетерминированный(word)}");
@@ -19,9 +19,9 @@ namespace automata_task3 {
         }
 
         static bool Детерминированный(string word) {
-            var rules = new[] { -1, -1, 3, 3, 6, 7, 8, 10, 6, 7, 11, 10, 14, 14, -1, -1 }
+            var rules = new[] { -1, -1, 3, 3, 6, 7, 8, 10, 6, 7, 11, 10, 14, 14, -1 }
                .Select((t, i) => new Rule(i.ToString(), 'a', t.ToString()))
-               .Concat(new[] { 1, 2, 4, 5, 4, 5, 9, 9, 5, 5, 12, 13, -1, -1, 15, -1 }
+               .Concat(new[] { 1, 2, 4, 5, 4, 5, 9, 9, 5, 5, 12, 13, -1, -1, 15 }
                .Select((t, i) => new Rule(i.ToString(), 'b', t.ToString())))
                .Concat(new[] { new Rule(STR, EPS, "0") }).ToList();
 
@@ -29,6 +29,7 @@ namespace automata_task3 {
             try {
                 new Automaton(new[] {
                     new Final(state => {
+                        Console.WriteLine($"{word[state.Position]} : {state.Position}, {state.Name}");
                         if (gotEnd = word.Length == state.Position)
                             throw new Exception();
                     }, "15", "13", "9")
