@@ -18,7 +18,7 @@ namespace lib {
                 .ToDictionary(group => group.Key, group => group.ToList());
             que = new Queue<State>(new[] { new State(STR, 0) });
 
-            //Rules.ForEach(pair => Console.WriteLine($"{pair.Key}\t{string.Join(", ", pair.Value)}"));
+            Rules.ForEach(pair => Debug.WriteLine(string.Join(", ", pair.Value)));
         }
 
         public void Run(string word) {
